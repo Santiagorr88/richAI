@@ -6,16 +6,19 @@ To add a new model, simply add its configuration here.
 """
 
 AI_MODELS = {
-    "gemini": {
-        "name": "Google Gemini",
-        "provider": "Google",
-        "model_id": "imagen-3.0-generate-002",
-        "env_key": "GEMINI_API_KEY",
-        "description": "High-quality image generation with Imagen 3.0",
-        "supported_sizes": ["1024x1024", "1024x1792", "1792x1024"],
-        "default_size": "1024x1792",
-        "cost_per_image": 0.04,  # Approximate
-    },
+    # Note: Gemini/Imagen requires Google Cloud Vertex AI setup
+    # Keeping config for future implementation
+    # "gemini": {
+    #     "name": "Google Imagen (Vertex AI)",
+    #     "provider": "Google Cloud",
+    #     "model_id": "imagegeneration@006",
+    #     "env_key": "GOOGLE_CLOUD_PROJECT",
+    #     "description": "Requires Vertex AI setup - see documentation",
+    #     "supported_sizes": ["1024x1024", "1024x1792"],
+    #     "default_size": "1024x1792",
+    #     "cost_per_image": 0.04,
+    #     "status": "requires_vertex_ai"
+    # },
     "dalle": {
         "name": "DALL-E 3",
         "provider": "OpenAI",
