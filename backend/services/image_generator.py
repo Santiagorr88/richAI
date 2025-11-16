@@ -87,15 +87,18 @@ Make it look like modern wealth in 2025 - think exclusive nightlife, private jet
         prompt = self.build_prompt(customization)
         
         if model == "gemini":
-            if not self.gemini_generator:
+            if not self.gemini_configured:
                 raise ValueError("Gemini API key not configured. Please add GEMINI_API_KEY to .env file")
             
-            images = await self.gemini_generator.generate_images(
-                prompt=prompt,
-                model="imagen-3.0-generate-002",
-                number_of_images=1
+            # Use Google's official Imagen API through generativeai
+            # Note: As of now, Gemini primarily does text. For images, you might need to use
+            # Vertex AI or wait for official image generation API
+            # For now, we'll provide a clear error message
+            raise NotImplementedError(
+                "Google Gemini image generation requires Vertex AI setup. "
+                "Please use DALL-E models (dalle or dalle2) or set up Vertex AI. "
+                "See documentation: https://cloud.google.com/vertex-ai/docs/generative-ai/image/generate-images"
             )
-            return images[0]
         
         elif model == "dalle":
             if not self.openai_api_key:
