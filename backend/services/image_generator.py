@@ -81,18 +81,52 @@ Make it look like modern wealth in 2025 - think exclusive nightlife, private jet
         prompt = self.build_prompt(customization)
         
         if model == "gemini":
+            if not self.gemini_generator:
+                raise ValueError("Gemini API key not configured. Please add GEMINI_API_KEY to .env file")
+            
             images = await self.gemini_generator.generate_images(
                 prompt=prompt,
                 model="imagen-3.0-generate-002",
                 number_of_images=1
             )
             return images[0]
+        
         elif model == "dalle":
-            # TODO: Implement DALL-E integration when needed
-            # Will need OpenAI API key configuration
-            raise NotImplementedError("DALL-E integration not yet implemented. Configure OpenAI API key to use.")
+            if not self.openai_api_key:
+                raise ValueError("OpenAI API key not configured. Please add OPENAI_API_KEY to .env file")
+            
+            # Generate image with DALL-E 3
+            response = openai.images.generate(
+                model="dall-e-3",
+                prompt=prompt,
+                size="1024x1792",  # Vertical format
+                quality="hd",
+                n=1,
+            )
+            
+            # Download the image
+            image_url = response.data[0].url
+            image_response = requests.get(image_url)
+            return image_response.content
+        
+        elif model == "dalle2":
+            if not self.openai_api_key:
+                raise ValueError("OpenAI API key not configured. Please add OPENAI_API_KEY to .env file")
+            
+            # DALL-E 2 (cheaper, faster but lower quality)
+            response = openai.images.generate(
+                model="dall-e-2",
+                prompt=prompt,
+                size="1024x1024",  # DALL-E 2 only supports square
+                n=1,
+            )
+            
+            image_url = response.data[0].url
+            image_response = requests.get(image_url)
+            return image_response.content
+        
         else:
-            raise ValueError(f"Unsupported AI model: {model}")
+            raise ValueError(f"Unsupported AI model: {model}. Available models: gemini, dalle, dalle2")
     
     def get_prompt_for_record(self, customization: Dict[str, Any]) -> str:
         """Get the prompt that will be stored in database."""
