@@ -53,6 +53,12 @@ async def startup_event():
 async def health_check():
     return {"status": "healthy", "service": "I'm Rich AI API"}
 
+@app.get("/api/models")
+async def list_models():
+    """List all available AI models."""
+    from services.ai_models_config import list_available_models
+    return {"models": list_available_models()}
+
 # ==================== Authentication Endpoints ====================
 
 @app.post("/api/auth/register", response_model=Token)
