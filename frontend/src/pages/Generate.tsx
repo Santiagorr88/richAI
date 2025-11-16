@@ -13,7 +13,7 @@ const Generate: React.FC = () => {
   const [elements, setElements] = useState('luxury');
   const [mood, setMood] = useState('luxurious');
   const [additionalDetails, setAdditionalDetails] = useState('');
-  const [aiModel, setAiModel] = useState('gemini');
+  const [aiModel, setAiModel] = useState('dalle');
 
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
