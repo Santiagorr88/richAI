@@ -196,7 +196,6 @@ const Generate: React.FC = () => {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                 data-testid="ai-model-select"
               >
-                <option value="gemini">Google Gemini (Imagen 3.0 - High Quality)</option>
                 <option value="dalle">DALL-E 3 (OpenAI - Ultra HD, Vertical)</option>
                 <option value="dalle2">DALL-E 2 (OpenAI - Fast & Cheap)</option>
               </select>
