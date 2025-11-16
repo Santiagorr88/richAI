@@ -1,9 +1,45 @@
 !/.idea/
 !/.venv/
--e 
+
 # Environment files
 *.env
 *.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.db
+*.db-journal
+
+# Node
+node_modules/
+dist/
+build/
+.cache/
+yarn.lock
+package-lock.json
+
+# Generated images
+generated/
+*.jpg
+*.png
+*.jpeg
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
 -e 
 # Environment files
 *.env
