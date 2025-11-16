@@ -1,26 +1,32 @@
 import os
 import asyncio
 from typing import Dict, Any, Optional
-from emergentintegrations.llm.gemeni.image_generation import GeminiImageGeneration
 import openai
 import requests
 from io import BytesIO
+import google.generativeai as genai
 
 class ImageGeneratorService:
     def __init__(self):
         # Google Gemini setup
         self.gemini_api_key = os.getenv("GEMINI_API_KEY")
-        self.gemini_generator = None
         if self.gemini_api_key and self.gemini_api_key != "your-gemini-api-key-here":
             try:
-                self.gemini_generator = GeminiImageGeneration(api_key=self.gemini_api_key)
+                genai.configure(api_key=self.gemini_api_key)
+                self.gemini_configured = True
             except Exception as e:
                 print(f"Warning: Gemini setup failed: {e}")
+                self.gemini_configured = False
+        else:
+            self.gemini_configured = False
         
         # OpenAI setup
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
         if self.openai_api_key and self.openai_api_key != "your-openai-api-key-here":
             openai.api_key = self.openai_api_key
+            self.openai_configured = True
+        else:
+            self.openai_configured = False
     
     def build_prompt(self, customization: Dict[str, Any]) -> str:
         """Build a detailed prompt based on user customization."""
