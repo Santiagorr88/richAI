@@ -119,7 +119,7 @@ Make it look like modern wealth in 2025 - think exclusive nightlife, private jet
             return image_response.content
         
         elif model == "dalle2":
-            if not self.openai_api_key:
+            if not self.openai_configured:
                 raise ValueError("OpenAI API key not configured. Please add OPENAI_API_KEY to .env file")
             
             # DALL-E 2 (cheaper, faster but lower quality)
